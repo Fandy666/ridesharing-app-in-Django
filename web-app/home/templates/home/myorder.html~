@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Title: {{ driver.name }}</h1>
+
+  <p><strong>Email:</strong> {{ driver.user.email }}</p >
+  <p><strong>number:</strong> {{ driver.number }}</p > 
+  <p><strong>Vehicle size:</strong> {{ driver.size }}</p >    
+
+
+<div style="margin-left:20px;margin-top:20px">
+<h4>Orders</h4>
+
+<dl>
+{% for order in driver.order_set.all %}
+  <dt>< a href=" 'order-detail' order.pk %}">{{order}}</ a></dt>
+  <dd>{{order.status}}</dd>
+{% endfor %}
+</dl>
+</div>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+{% block content %}
+ <h2>Register</h2>
+{% if message %}
+ {{ message }}
+{% endif %}
+<form method="post" action="" enctype="multipart/form-data">      
+{% csrf_token %}      
+{% for field in form %}                
+{{ field.errors }}        
+{{ field.label_tag }} {{ field }}              
+  {% endfor %}           
+    <input type="submit" value="Login" />     
+     </div>   
+     </form>   
+{% endblock %}
+ 
+ 
+
+      

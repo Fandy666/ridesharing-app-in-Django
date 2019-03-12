@@ -1,0 +1,10 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div style="margin-left:20px;margin-top:20px">
+ <h1>Owner Information</h1>
+  <p><strong>Name:</strong>  {{ owner.user.get_full_name }}</p>
+  <p><strong>Phone:</strong> {{ owner.phone }}</p>  
+
+  
+{% endblock %}

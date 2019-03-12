@@ -1,0 +1,85 @@
+{% extends "base_generic.html" %}
+{% block content %}
+
+<!DOCTYPE html>
+<div style="margin: 0px auto;display: table;">
+<h1>Ride Sharing</h1>
+
+  <p>Welcome to <em>Ride Sharing</em>, a popular website which can provide car sharing services.</p>
+
+<div class="btn-group">
+  
+ {% if perms.home.change_order_info %}
+ <strong><a href="/home/createorder"><button class="btn btn-info">Creat New Request</button></a></strong>
+ <strong><a href="/home/sharesearchorder"><button class="btn btn-info">Search for Sharing</button></a></strong>
+ {% endif %} 
+ {% if perms.home.confirm_order %}
+ <strong><a href="/home/driversearchorder"><button class="btn btn-info">Search For Request</button></a></strong>
+ {% endif %}
+{% if user.is_authenticated %}
+
+</div>
+<p></p>
+<HR align=center width=800>
+<HR align=center width=800>
+<div style="margin-left:40px;margin-top:20px;">
+  <h3>My Information</h3>
+  <p><strong>Name:</strong> {{ user.get_full_name }}</p >
+  <p><strong>Email:</strong> {{ user.email }}</p >
+  
+   {% if perms.home.change_order_info %}
+     {% for owner in user.owner_set.all %}
+      <p><strong>Phone:</strong> {{ owner.phone }}</p >
+     {%endfor%}
+   {%endif%}
+   
+   {% if perms.home.confirm_order %}
+      {% for driver in user.driver_set.all %}
+       <p><strong>Vehicle Size:</strong> {{ driver.size }}</p > 
+     {%endfor%}
+   {%endif%}
+   <a href="{% url 'edituser' %}"> 
+     <button class="btn btn-info btn-sm">Edit Personal Information</button>               
+   </a>
+</div>
+<p></p>
+<HR align=center width=800>
+<HR align=center width=800>
+<div class="container"> 
+ <div class="row">
+      <div class="col-md-6" >
+   {% if perms.home.change_order_info %}
+     {% for owner in user.owner_set.all %}
+      <h3>My History Order As a Owner</h3>
+      <dl>
+      {% for order in owner.order.all %}
+           <li><a href=" {{ order.get_absolute_url }}">{{order}}</a></li>
+           {% if order.status == 'r' %}
+            <li><a href=" {{ order.get_edit_url }}">edit order</a> </li>
+           {% endif %}
+        <dd>  Status: {{order.get_status_display}}</dd>
+      {% endfor %}
+      </dl>
+      {%endfor%}
+    {%endif%}
+  </div>
+      <div class="col-md-6" > 
+    {% if perms.home.confirm_order %}
+      {% for driver in user.driver_set.all %}   
+
+      <h3>My History Order As an Driver:</h3>
+      <dl>
+          {% for order in driver.order_set.all %}
+            <li><a href=" {{ order.get_absolute_url }}">{{order}}</a> </li>
+            <dd>  Status: {{order.get_status_display}}</dd> 
+          {% endfor %}
+      </dl>
+      </div>
+       </div>
+      {%endfor%}
+    {%endif%}
+</div>
+{%endif%}
+</div>
+
+{% endblock %}

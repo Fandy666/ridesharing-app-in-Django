@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Title: {{ owner.user.username }}</h1>
+
+  <p><strong>Email:</strong> {{ owner.user.email }}</p >
+  <p><strong>number:</strong> {{ owner.number }}</p >
+
+
+<div style="margin-left:20px;margin-top:20px">
+<h4>Orders</h4>
+
+<dl>
+{% for order in owner.order_set.all %}
+  <dt>< a href=" 'order-detail' order.pk %}">{{order}}</ a></dt>
+  <dd>{{order.status}}</dd>
+{% endfor %}
+</dl>
+</div>
+
+{% endblock %}

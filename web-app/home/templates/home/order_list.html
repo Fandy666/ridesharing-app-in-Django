@@ -1,0 +1,25 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+   <h2>Search orderas you want: </h2>
+ <p><strong><a href="/home/driversearchorder">Order Search</a></strong>
+    <h2>List of All the Order You Can Confirm</h2>
+
+    {% if order_list %}
+    <ul>
+
+      {% for order in order_list %}
+      
+{% if order.status == 'r' %}
+       <li>
+        <a href="{{ order.get_absolute_url }}">{{ order.destination }}</a> ({{order.destination}})
+       </li>
+{% endif %}
+     
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no order avaliable.</p>
+    {% endif %}       
+{% endblock %}

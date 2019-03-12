@@ -1,0 +1,60 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Destination: {{ order.destination }}</h1>
+
+  <p><strong>Departure:</strong> {{ order.departure }}</p >
+  <p><strong>Time:</strong> {{ order.aptime }}</p > 
+  <p><strong>Passenger:</strong> {{ order.passenger }}</p >   
+  <p><strong>Owner:</strong>  {{ order.owner_set.first }} </p >
+  <p><strong>Sharer:</strong> {% for owner in order.owner_set.all %} {% if owner != order.owner_set.first %}{{ owner }}{% endif %} {% endfor %}</p >
+  {% if order.status == 'c' %}
+  <p><strong>Driver:</strong> <a href="{{ order.driver.get_absolute_url }}">{{ order.driver }}</a> </p >  
+  {% else %}
+  <p><strong>Driver:</strong> {{ order.driver }}</a> </p >  
+  {% endif %}
+   <p> <strong> Status:</strong> {{order.get_status_display}}</p> 
+ 
+{% if not request.session.No_access %} 
+{% if request.session.confirm_key %}
+
+  {% if perms.home.confirm_order %}
+    {% if order.status == 'r' or order.status == 's'%}
+    <form method="post" action=""> 
+    {%csrf_token%}
+    <input name="sss" type="submit" value="confirm" />
+    </form>
+    {%endif%}
+  {%endif%}
+{%endif%}
+{% if request.session.share_key %}
+  {% if perms.home.change_order_info %}
+    <form method="post" action="">
+    {%csrf_token%}
+    <input name="ccc" type="submit" value="share" />
+    </form>
+  {%endif%}
+{%endif%}
+{%endif%}
+{% if order.status == 'c' %}
+  {% if order.driver == request.user.driver_set.first %}
+    <form method="post" action="">
+    {%csrf_token%}
+    <input name="aaa" type="submit" value="finish" />
+    </form>
+  {%endif%}
+{%endif%}
+
+  {% if perms.home.confirm_order %}
+ {% if order.status == 'c'  %}    
+  {% for key, value in request.session.items %}
+      {% ifequal order.pk value %}
+        <h2>Check the Owner Information: </h2>
+        <p><strong>Owner:</strong>  <a href="{{ order.owner_set.first.get_absolute_url }}">{{ order.owner_set.first }}</a> </p > <p><strong>Sharer:</strong> 
+       {% for owner in order.owner_set.all %}{% if owner != order.owner_set.first %} <a href="{{ owner.get_absolute_url }} ">{{ owner }}</a> {% endif %}{% endfor %}</p >
+      {%endifequal %}
+  {% endfor %}
+ {% endif %}
+ {% endif %}
+
+{% endblock %}

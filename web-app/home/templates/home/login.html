@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+{% block content %}
+<div style="margin-left:20px;margin-top:20px">
+<h2>Login</h2>
+{% if message %}
+ {{ message }}
+{% endif %}
+<form method="post" action="" enctype="multipart/form-data">      
+{% csrf_token %}      
+{% for field in form %}                
+{{ field.errors }}        
+{{ field.label_tag }} {{ field }}              
+  {% endfor %}           
+    <input type="submit" value="Login" />     
+     </div>   
+     </form>   
+     <a href=" /home/password_reset">Reset password?</a>
+     <a href="/home/register">Register</a></div> 
+{% endblock %}

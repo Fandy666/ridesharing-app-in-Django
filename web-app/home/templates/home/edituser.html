@@ -1,0 +1,29 @@
+{% extends "base_generic.html" %}
+{% block content %} 
+<div style="margin-left:20px;margin-top:20px">
+ <h2>Edit Personal Information</h2>
+{% if message %}
+ {{ message }}
+{% endif %}
+<form method="post" action="" enctype="multipart/form-data">      
+{% csrf_token %}        
+ {{ form.phone.errors }}        
+ <p>{{ form.phone.label_tag }} {{ form.phone }}   </p>    
+ 
+ {{ form.first_name.errors }}        
+ <p>{{ form.first_name.label_tag }} {{ form.first_name }}   </p>    
+  {{ form.last_name.errors }}        
+  
+ <p>{{ form.last_name.label_tag }} {{ form.last_name }}   </p>    
+ {% if perms.home.confirm_order  %}
+ 
+  {{ form.size.errors }}        
+ <p>{{ form.size.label_tag }} {{ form.size }}   </p>      
+ {% endif %}         
+ 
+ <input type="submit" value="Edit" />     
+ </div>   
+ </form>   
+{% endblock %}
+ 
+ 

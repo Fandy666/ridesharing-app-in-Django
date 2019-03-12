@@ -1,0 +1,27 @@
+{% extends "base_generic.html" %}
+{% block content %}
+<script type="text/javascript" src="/media/admin/js/core.js"></script>
+<script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
+<style>.calendar>table>caption{caption-side:unset}</style><!--caption fix for bootstrap4-->
+<script type="text/javascript">window.__admin_media_prefix__ = "/static/admin/";</script>
+<script type="text/javascript" src="/admin/jsi18n/"></script>    
+<script type="text/javascript" src="/static/admin/js/core.js"></script>
+
+{{ form.media }}
+<div style="margin-left:20px;margin-top:20px">
+<h2>Edit Order</h2>
+ {% if order.status == 'r' %}
+{% if message %}
+ {{ message }}
+{% endif %}
+<form method="post" action="" enctype="multipart/form-data">      
+{% csrf_token %}      
+ {{ form.as_p }}  
+    <input type="submit" class="btn btn-default" value="Editorder" />  
+ {% else %}   
+ <h3>This order is already confirmed, shared or finished, you can not edit it</h3>
+ {% endif%}
+ 
+     </div>   
+     </form>   
+{% endblock %}

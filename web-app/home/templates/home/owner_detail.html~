@@ -1,0 +1,12 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Title: {{ owner.name }}</h1>
+
+  <!--<p><strong>Author:</strong> <a href="">{{ book.author }}</a></p> author detail link not yet defined -->
+  <p><strong>Name:</strong> {{ owner.user.name }}</p>
+  <p><strong>Number:</strong> {{ owner.number }}</p> 
+  <p><strong>Email:</strong> {{ owner.email }}</p>    
+
+  
+{% endblock %}

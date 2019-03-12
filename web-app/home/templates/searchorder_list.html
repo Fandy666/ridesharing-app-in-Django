@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+
+{% block content %}
+
+<div style="margin-left:20px;margin-top:20px">
+<h2>Searching Result:</h2>
+
+{% for order in searchorder_list %}
+  <div>
+  <a href="{{ order.get_absolute_url }}">{{ order.destination }}</a> ({{order.destination}})
+  </div>
+{% empty %}
+  <div class="no-post">
+    No such ride found
+  </div>
+{% endfor %}
+{% endblock %}

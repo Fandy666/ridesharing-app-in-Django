@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<div style="margin-left:20px;margin-top:20px">
+<h1>Driver Information</h1>
+<p><strong>Name:</strong> {{ driver.user.get_full_name }}</h2>
+  <p><strong>phone:</strong> {{ driver.user.owner_set.first.phone }}</p >  
+  <p><strong>Vehicle Size:</strong> {{ driver.size }}</p >    
+
+
+
+
+{% endblock %}
